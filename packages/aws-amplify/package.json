@@ -1,0 +1,15 @@
+{
+  "name": "aws-amplify",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    ".": "./aws-amplify.ts",
+    "./constants": "./lib/constants.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "typescript": "^5.3.3",
+    "superstruct": "^1.0.3"
+  }
+}

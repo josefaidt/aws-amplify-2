@@ -1,0 +1,6 @@
+{
+  "name": "outputs-v2",
+  "type": "module",
+  "private": true,
+  "exports": "./amplify-outputs.ts"
+}

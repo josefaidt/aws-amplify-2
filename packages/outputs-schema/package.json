@@ -1,0 +1,9 @@
+{
+  "name": "outputs-schema",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./schema.jsonc",
+  "scripts": {},
+  "devDependencies": {}
+}

@@ -1,0 +1,5 @@
+node_modules
+.env*
+
+# no builds
+packages/**/build

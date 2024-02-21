@@ -1,0 +1,42 @@
+{
+  "$schema": "./schema.json",
+  "_version": "0.1.0",
+  "auth": {
+    "aws_region": "us-east-1",
+    "identity_pool_id": "...",
+    "user_pool_client_id": "...",
+    "user_pool_id": "...",
+    "oauth_domain": "https://cognito.com...",
+    "oauth_redirect_sign_in": "http://localhost:3000/welcome",
+    "oauth_redirect_sign_out": "http://localhost:3000/come-back-soon",
+    "oauth_response_type": "code",
+    "oauth_scope": ["profile", "..."],
+    "password_policy_characters": [
+      "REQUIRES_LOWERCASE",
+      "REQUIRES_UPPERCASE",
+      "REQUIRES_NUMBERS",
+      "REQUIRES_SYMBOLS"
+    ],
+    "password_policy_min_length": 32,
+    "social_providers": ["Google", "Midway"],
+    "user_signup_atributes": ["email"],
+    "user_verification_mechanisms": ["email"],
+    "user_username_attributes": ["email"],
+    "mfa_configuration": "OPTIONAL",
+    "mfa_methods": ["SMS"]
+  },
+  "data": {
+    "aws_region": "us-east-1",
+    "url": "https://...",
+    "model_introspection": {},
+    "default_authorization_type": "AMAZON_COGNITO_USER_POOLS",
+    "authorization_types": ["AMAZON_COGNITO_USER_POOLS", "AWS_IAM"]
+  },
+  "storage": {
+    "aws_region": "us-east-1",
+    "name": "myphotos-dev"
+  },
+  "custom": {
+    "my_function_url": "https://..."
+  }
+}
