@@ -1,27 +1,31 @@
 {
   "$schema": "./schema.json",
-  "_version": "0.1.0",
+  "_version": "1",
   "auth": {
     "aws_region": "us-east-1",
     "identity_pool_id": "...",
     "user_pool_client_id": "...",
     "user_pool_id": "...",
     "oauth_domain": "https://cognito.com...",
-    "oauth_redirect_sign_in": "http://localhost:3000/welcome",
-    "oauth_redirect_sign_out": "http://localhost:3000/come-back-soon",
+    "oauth_redirect_sign_in": ["http://localhost:3000/welcome"],
+    "oauth_redirect_sign_out": ["http://localhost:3000/come-back-soon"],
     "oauth_response_type": "code",
     "oauth_scope": ["profile", "..."],
-    "password_policy_characters": [
-      "REQUIRES_LOWERCASE",
-      "REQUIRES_UPPERCASE",
-      "REQUIRES_NUMBERS",
-      "REQUIRES_SYMBOLS"
-    ],
-    "password_policy_min_length": 32,
-    "social_providers": ["Google", "Midway"],
-    "user_signup_atributes": ["email"],
-    "user_verification_mechanisms": ["email"],
-    "user_username_attributes": ["email"],
+    "password_policy": {
+      "require_lowercase": true,
+      "require_uppercase": true,
+      "require_symbols": true,
+      "require_numbers": true
+    },
+    "identity_providers": ["Google", "Midway"],
+    "standard_attributes": {
+      "email": {
+        "required": true
+      }
+    },
+    "username_attributes": ["EMAIL"],
+    "user_verification_mechanisms": ["EMAIL"],
+    "unauthenticated_identities_enabled": true,
     "mfa_configuration": "OPTIONAL",
     "mfa_methods": ["SMS"]
   },
