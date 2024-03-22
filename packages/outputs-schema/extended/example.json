@@ -1,0 +1,90 @@
+{
+  "$schema": "./schema.json",
+  "version": "1",
+  "analytics": {
+    "amazon_pinpoint": {
+      "aws_region": "us-east-1",
+      "app_id": "6a3271f20c7c435ab55a0f6704327662"
+    }
+  },
+  "api": {
+    "endpoints": [
+      {
+        "aws_region": "us-east-1",
+        "name": "mycoolapi",
+        "url": "https://mycoolapi.invoke-...",
+        "authorization_types": ["AWS_IAM"],
+        "default_authorization_type": "AWS_IAM"
+      }
+    ]
+  },
+  "auth": {
+    "aws_region": "us-east-1",
+    "identity_pool_id": "...",
+    "user_pool_client_id": "...",
+    "user_pool_id": "...",
+    "oauth_domain": "https://cognito.com...",
+    "oauth_redirect_sign_in": ["http://localhost:3000/welcome"],
+    "oauth_redirect_sign_out": ["http://localhost:3000/come-back-soon"],
+    "oauth_response_type": "code",
+    "oauth_scopes": ["profile", "..."],
+    "password_policy": {
+      "require_lowercase": true,
+      "require_uppercase": true,
+      "require_symbols": true,
+      "require_numbers": true
+    },
+    "identity_providers": ["Google", "Midway"],
+    "standard_attributes": {
+      "email": {
+        "required": true
+      }
+    },
+    "username_attributes": ["EMAIL"],
+    "user_verification_mechanisms": ["EMAIL"],
+    "unauthenticated_identities_enabled": true,
+    "mfa_configuration": "OPTIONAL",
+    "mfa_methods": ["SMS"]
+  },
+  "data": {
+    "aws_region": "us-east-1",
+    "url": "https://...",
+    "model_introspection": {},
+    "default_authorization_type": "AMAZON_COGNITO_USER_POOLS",
+    "authorization_types": ["AMAZON_COGNITO_USER_POOLS", "AWS_IAM"]
+  },
+  "geo": {
+    "aws_region": "us-east-1",
+    "maps": {
+      "items": [
+        {
+          "name": "mysupercoolmap-dev",
+          "style": "Esri Dark Gray Canvas"
+        }
+      ],
+      "default": "mysupercoolmap-dev"
+    },
+    "search_indices": {
+      "items": ["mysupercoolplaceindex-dev"],
+      "default": "mysupercoolplaceindex-dev"
+    },
+    "geofence_collections": {
+      "items": ["mysupercoolgeofence-dev"],
+      "default": "mysupercoolgeofence-dev"
+    }
+  },
+  "notifications": {
+    "aws_region": "us-east-1",
+    "pinpoint_app_id": "6a3271f20c7c435ab55a0f6704327662",
+    "channels": {
+      "fcm": true
+    }
+  },
+  "storage": {
+    "aws_region": "us-east-1",
+    "bucket_name": "myphotos-dev"
+  },
+  "custom": {
+    "my_function_url": "https://..."
+  }
+}
