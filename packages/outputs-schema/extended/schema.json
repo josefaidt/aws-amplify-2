@@ -45,7 +45,7 @@
           "$ref": "#/$defs/aws_region"
         },
         "authentication_flow_type": {
-          "description": "Authentication flow types (PL; double check with Praveen)",
+          "description": "Authentication flow types",
           "type": "string",
           "enum": ["USER_SRP_AUTH", "CUSTOM_AUTH"],
           "default": "USER_SRP_AUTH"
@@ -90,7 +90,13 @@
           "description": "Identity providers set on Cognito User Pool",
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "GOOGLE",
+              "FACEBOOK",
+              "LOGIN_WITH_AMAZON",
+              "SIGN_IN_WITH_APPLE"
+            ]
           },
           "minItems": 0,
           "uniqueItems": true
@@ -125,18 +131,14 @@
           "type": "string",
           "enum": ["code", "token"]
         },
-        "user_attributes": {
-          "description": "Cognito User Pool standard attributes used for signup",
-          "type": "object",
-          "additionalProperties": false,
-          "propertyNames": {
+        "standard_required_attributes": {
+          "description": "Cognito User Pool standard attributes required for signup",
+          "type": "array",
+          "items": {
             "$ref": "#/$defs/amazon_cognito_standard_attributes"
           },
-          "patternProperties": {
-            ".*": {
-              "$ref": "#/$defs/amazon_cognito_standard_attributes_config"
-            }
-          }
+          "minItems": 0,
+          "uniqueItems": true
         },
         "username_attributes": {
           "description": "Cognito User Pool username attributes",
@@ -225,51 +227,79 @@
           "description": "Maps from Amazon Location Service",
           "type": "object",
           "additionalProperties": false,
-          "propertyNames": {
-            "description": "Friendly map name",
-            "type": "string"
-          },
-          "patternProperties": {
-            ".*": {
-              "$ref": "#/$defs/amazon_location_service_config"
+          "properties": {
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "propertyNames": {
+                "description": "Friendly map name",
+                "type": "string"
+              },
+              "patternProperties": {
+                ".*": {
+                  "$ref": "#/$defs/amazon_location_service_config"
+                }
+              }
+            },
+            "default": {
+              "type": "string"
             }
-          }
+          },
+          "required": ["items", "default"]
         },
         "search_indices": {
           "description": "Location search (search by places, addresses, coordinates)",
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "propertyNames": {
-              "description": "Friendly search name",
-              "type": "string"
-            },
-            "patternProperties": {
-              ".*": {
-                "description": "Actual search name",
+            "properties": {
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "propertyNames": {
+                  "description": "Friendly search name",
+                  "type": "string"
+                },
+                "patternProperties": {
+                  ".*": {
+                    "description": "Actual search name",
+                    "type": "string"
+                  }
+                }
+              },
+              "default": {
                 "type": "string"
               }
-            }
-          },
-          "required": ["items", "default"]
+            },
+            "required": ["items", "default"]
+          }
         },
         "geofence_collections": {
           "description": "Geofencing (visualize virtual perimeters)",
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "propertyNames": {
-              "description": "Friendly geofence name",
-              "type": "string"
-            },
-            "patternProperties": {
-              ".*": {
-                "description": "Actual geofence name",
+            "properties": {
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "propertyNames": {
+                  "description": "Friendly geofence name",
+                  "type": "string"
+                },
+                "patternProperties": {
+                  ".*": {
+                    "description": "Actual geofence name",
+                    "type": "string"
+                  }
+                }
+              },
+              "default": {
                 "type": "string"
               }
-            }
-          },
-          "required": ["items", "default"]
+            },
+            "required": ["items", "default"]
+          }
         }
       },
       "required": ["aws_region"]
@@ -282,7 +312,7 @@
         "aws_region": {
           "$ref": "#/$defs/aws_region"
         },
-        "pinpoint_app_id": {
+        "amazon_pinpoint_app_id": {
           "type": "string"
         },
         "channels": {
@@ -299,7 +329,7 @@
           }
         }
       },
-      "required": ["aws_region", "pinpoint_app_id", "channels"]
+      "required": ["aws_region", "amazon_pinpoint_app_id", "channels"]
     },
     "storage": {
       "type": "object",
@@ -354,7 +384,8 @@
       "additionalProperties": false,
       "properties": {
         "required": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": false
         }
       }
     },
@@ -368,12 +399,6 @@
         "AWS_LAMBDA",
         "OPENID_CONNECT"
       ]
-    },
-    "amazon_api_gateway_authorization_type": {
-      "description": "List of supported auth types for API Gateway REST APIs, HTTP APIs, and Function URLs",
-      "type": "string",
-      "enum": ["AMAZON_COGNITO_USER_POOLS", "AWS_IAM"],
-      "default": "AWS_IAM"
     },
     "amazon_location_service_config": {
       "type": "object",
@@ -392,7 +417,7 @@
     "amazon_pinpoint_channels": {
       "description": "supported channels for Amazon Pinpoint",
       "type": "string",
-      "enum": ["in_app_messaging", "fcm", "apns", "email", "sms"]
+      "enum": ["IN_APP_MESSAGING", "fcm", "apns", "email", "sms"]
     }
   }
 }
