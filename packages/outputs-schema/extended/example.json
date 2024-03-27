@@ -7,41 +7,28 @@
       "app_id": "6a3271f20c7c435ab55a0f6704327662"
     }
   },
-  "api": {
-    "endpoints": [
-      {
-        "aws_region": "us-east-1",
-        "name": "mycoolapi",
-        "url": "https://mycoolapi.invoke-...",
-        "authorization_types": ["AWS_IAM"],
-        "default_authorization_type": "AWS_IAM"
-      }
-    ]
-  },
   "auth": {
     "aws_region": "us-east-1",
     "identity_pool_id": "...",
     "user_pool_client_id": "...",
     "user_pool_id": "...",
-    "oauth_domain": "https://cognito.com...",
-    "oauth_redirect_sign_in": ["http://localhost:3000/welcome"],
-    "oauth_redirect_sign_out": ["http://localhost:3000/come-back-soon"],
-    "oauth_response_type": "code",
-    "oauth_scopes": ["profile", "..."],
+    "oauth": {
+      "identity_providers": ["GOOGLE"],
+      "domain": "https://cognito.com...",
+      "redirect_sign_in_uri": ["http://localhost:3000/welcome"],
+      "redirect_sign_out_uri": ["http://localhost:3000/come-back-soon"],
+      "response_type": "code",
+      "scopes": ["profile", "..."]
+    },
     "password_policy": {
       "require_lowercase": true,
       "require_uppercase": true,
       "require_symbols": true,
       "require_numbers": true
     },
-    "identity_providers": ["Google", "Midway"],
-    "standard_attributes": {
-      "email": {
-        "required": true
-      }
-    },
+    "standard_required_attributes": ["email"],
     "username_attributes": ["EMAIL"],
-    "user_verification_mechanisms": ["EMAIL"],
+    "user_verification_types": ["EMAIL"],
     "unauthenticated_identities_enabled": true,
     "mfa_configuration": "OPTIONAL",
     "mfa_methods": ["SMS"]
@@ -56,29 +43,31 @@
   "geo": {
     "aws_region": "us-east-1",
     "maps": {
-      "items": [
-        {
+      "items": {
+        "mysupercoolmap": {
           "name": "mysupercoolmap-dev",
           "style": "Esri Dark Gray Canvas"
         }
-      ],
-      "default": "mysupercoolmap-dev"
+      },
+      "default": "mysupercoolmap"
     },
     "search_indices": {
-      "items": ["mysupercoolplaceindex-dev"],
-      "default": "mysupercoolplaceindex-dev"
+      "items": {
+        "mysupercoolplaceindex": "mysupercoolplaceindex-dev"
+      },
+      "default": "mysupercoolplaceindex"
     },
     "geofence_collections": {
-      "items": ["mysupercoolgeofence-dev"],
-      "default": "mysupercoolgeofence-dev"
+      "items": {
+        "mysupercoolgeofence": "mysupercoolgeofence-dev"
+      },
+      "default": "mysupercoolgeofence"
     }
   },
   "notifications": {
     "aws_region": "us-east-1",
-    "pinpoint_app_id": "6a3271f20c7c435ab55a0f6704327662",
-    "channels": {
-      "fcm": true
-    }
+    "amazon_pinpoint_app_id": "6a3271f20c7c435ab55a0f6704327662",
+    "channels": ["FCM"]
   },
   "storage": {
     "aws_region": "us-east-1",

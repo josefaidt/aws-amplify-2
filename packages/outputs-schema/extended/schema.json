@@ -86,50 +86,68 @@
             }
           }
         },
-        "identity_providers": {
-          "description": "Identity providers set on Cognito User Pool",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "GOOGLE",
-              "FACEBOOK",
-              "LOGIN_WITH_AMAZON",
-              "SIGN_IN_WITH_APPLE"
-            ]
+        "oauth": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "identity_providers": {
+              "description": "Identity providers set on Cognito User Pool",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "GOOGLE",
+                  "FACEBOOK",
+                  "LOGIN_WITH_AMAZON",
+                  "SIGN_IN_WITH_APPLE"
+                ]
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "domain": {
+              "description": "Cognito Domain used for identity providers",
+              "type": "string"
+            },
+            "scopes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "redirect_sign_in_uri": {
+              "description": "URIs used to redirect after signing in using an identity provider",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "redirect_sign_out_uri": {
+              "description": "URIs used to redirect after signing out",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "response_type": {
+              "type": "string",
+              "enum": ["code", "token"]
+            }
           },
-          "minItems": 0,
-          "uniqueItems": true
-        },
-        "oauth_domain": {
-          "description": "Cognito Domain used for identity providers",
-          "type": "string"
-        },
-        "oauth_scopes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 0,
-          "uniqueItems": true
-        },
-        "oauth_redirect_sign_in": {
-          "description": "URIs used to redirect after signing in using an identity provider",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "oauth_redirect_sign_out": {
-          "description": "URIs used to redirect after signing out",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "oauth_response_type": {
-          "type": "string",
-          "enum": ["code", "token"]
+          "required": [
+            "identity_providers",
+            "domain",
+            "scopes",
+            "redirect_sign_in_uri",
+            "redirect_sign_out_uri",
+            "response_type"
+          ]
         },
         "standard_required_attributes": {
           "description": "Cognito User Pool standard attributes required for signup",
@@ -201,10 +219,6 @@
           "items": {
             "$ref": "#/$defs/aws_appsync_authorization_type"
           }
-        },
-        "conflict_resolution_mode": {
-          "type": "string",
-          "enum": ["AUTO_MERGE", "OPTIMISTIC_CONCURRENCY", "LAMBDA"]
         }
       },
       "required": [
@@ -252,34 +266,31 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "properties": {
-              "items": {
-                "type": "object",
-                "additionalProperties": false,
-                "propertyNames": {
-                  "description": "Friendly search name",
-                  "type": "string"
-                },
-                "patternProperties": {
-                  ".*": {
-                    "description": "Actual search name",
-                    "type": "string"
-                  }
-                }
-              },
-              "default": {
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "propertyNames": {
+                "description": "Friendly search name",
                 "type": "string"
+              },
+              "patternProperties": {
+                ".*": {
+                  "description": "Actual search name",
+                  "type": "string"
+                }
               }
             },
-            "required": ["items", "default"]
-          }
+            "default": {
+              "type": "string"
+            }
+          },
+          "required": ["items", "default"]
         },
         "geofence_collections": {
           "description": "Geofencing (visualize virtual perimeters)",
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "properties": {
               "items": {
                 "type": "object",
                 "additionalProperties": false,
@@ -299,7 +310,6 @@
               }
             },
             "required": ["items", "default"]
-          }
         }
       },
       "required": ["aws_region"]
@@ -316,17 +326,12 @@
           "type": "string"
         },
         "channels": {
-          "type": "object",
-          "additionalProperties": false,
-          "propertyNames": {
+          "type": "array",
+          "items": {
             "$ref": "#/$defs/amazon_pinpoint_channels"
           },
-          "patternProperties": {
-            ".*": {
-              "type": "boolean",
-              "default": false
-            }
-          }
+          "minItems": 1,
+          "uniqueItems": true
         }
       },
       "required": ["aws_region", "amazon_pinpoint_app_id", "channels"]
@@ -379,16 +384,6 @@
         "zoneinfo"
       ]
     },
-    "amazon_cognito_standard_attributes_config": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "required": {
-          "type": "boolean",
-          "default": false
-        }
-      }
-    },
     "aws_appsync_authorization_type": {
       "description": "List of supported auth types for AWS AppSync",
       "type": "string",
@@ -417,7 +412,7 @@
     "amazon_pinpoint_channels": {
       "description": "supported channels for Amazon Pinpoint",
       "type": "string",
-      "enum": ["IN_APP_MESSAGING", "fcm", "apns", "email", "sms"]
+      "enum": ["IN_APP_MESSAGING", "FCM", "APNS", "EMAIL", "SMS"]
     }
   }
 }
