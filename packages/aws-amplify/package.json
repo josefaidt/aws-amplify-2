@@ -5,10 +5,15 @@
   "private": true,
   "exports": {
     ".": "./aws-amplify.ts",
-    "./constants": "./lib/constants.ts"
+    "./constants": "./lib/constants.ts",
+    "./env": "./env.ts"
+  },
+  "dependencies": {
+    "@aws-amplify/api": "^6.0.17"
   },
   "devDependencies": {
     "@types/node": "^20.11.5",
+    "aws-cdk-lib": "^2.130.0",
     "typescript": "^5.3.3",
     "superstruct": "^1.0.3"
   }

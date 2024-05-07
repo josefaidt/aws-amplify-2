@@ -1,5 +1,5 @@
-import { getBucket, parseAmplifyOutputs } from "aws-amplify"
-// import { AMPLIFY_OUTPUTS } from "outputs-v1"
-import { AMPLIFY_OUTPUTS } from "outputs-v2"
+import { generateClient, getBucket, signIn } from "aws-amplify"
 
-// getBucket('monthlyreports').upload('/reports')
+const client = generateClient()
+
+getBucket("")

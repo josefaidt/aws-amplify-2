@@ -27,8 +27,8 @@
       "require_numbers": true
     },
     "standard_required_attributes": ["email"],
-    "username_attributes": ["EMAIL"],
-    "user_verification_types": ["EMAIL"],
+    "username_attributes": ["email"],
+    "user_verification_types": ["email"],
     "unauthenticated_identities_enabled": true,
     "mfa_configuration": "OPTIONAL",
     "mfa_methods": ["SMS"]
@@ -52,16 +52,16 @@
       "default": "mysupercoolmap"
     },
     "search_indices": {
-      "items": {
-        "mysupercoolplaceindex": "mysupercoolplaceindex-dev"
-      },
-      "default": "mysupercoolplaceindex"
+      "items": [
+        "mysupercoolplaceindex-dev"
+      ],
+      "default": "mysupercoolplaceindex-dev"
     },
     "geofence_collections": {
-      "items": {
-        "mysupercoolgeofence": "mysupercoolgeofence-dev"
-      },
-      "default": "mysupercoolgeofence"
+      "items": [
+        "mysupercoolgeofence-dev"
+      ],
+      "default": "mysupercoolgeofence-dev"
     }
   },
   "notifications": {

@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "devDependencies": {
+    "@aws-amplify/backend": "beta",
     "@types/node": "^20.11.5",
     "aws-amplify": "workspace:*",
     "outputs-v1": "workspace:*",
