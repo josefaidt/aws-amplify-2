@@ -1,0 +1,8 @@
+{
+  "$schema": "./schema.json",
+  "version": "2",
+  "auth": {
+    "aws_region": "us-east-1",
+    "identity_pool_id": "asdf",
+  }
+}

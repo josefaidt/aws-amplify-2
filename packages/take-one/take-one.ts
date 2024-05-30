@@ -1,5 +1,8 @@
-import { generateClient, getBucket, signIn } from "aws-amplify"
+import { generateClient, getBucket, upload, signIn } from "aws-amplify"
 
 const client = generateClient()
 
-getBucket("")
+upload("monthlyreports", {
+  path: "/raw",
+  file: new File([], "my-file"),
+})
