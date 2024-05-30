@@ -1,6 +1,7 @@
 export type { AmplifyOutputs } from "./lib/schema/AmplifyOutputs"
 export { parseAmplifyOutputs } from "./lib/parse-amplify-outputs"
 export { Amplify } from "./lib/Amplify"
+export { getUserAttributes } from "./lib/auth/get-user-attributes"
 export { signIn } from "./lib/auth/sign-in"
 export { generateClient } from "./lib/data/generate-client"
 export { getBucket } from "./lib/storage/get-bucket"

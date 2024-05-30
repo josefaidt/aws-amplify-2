@@ -1,6 +1,16 @@
 declare module "aws-amplify/env" {
   interface Auth {
     providers: ["GitHub", "Discord"]
+    attributes: {
+      email: {
+        required: true
+      }
+      "custom:username": {
+        // can't do ranges here https://github.com/microsoft/TypeScript/issues/54925
+        max: 30
+        required: true
+      }
+    }
   }
 
   interface Data {

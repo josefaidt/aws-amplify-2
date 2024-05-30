@@ -1,10 +1,12 @@
-import type { StandardAttributes } from "aws-cdk-lib/aws-cognito"
 import {
   array,
+  boolean,
   enums,
+  intersection,
   number,
   object,
   optional,
+  pattern,
   record,
   string,
 } from "superstruct"
@@ -33,7 +35,36 @@ import { AWS_REGIONS } from "../constants"
 // })
 
 export const AmplifyAuthOutputs = object({
-  aws_region: string(),
+  aws_region: enums(AWS_REGIONS),
   providers: array(string()),
-  user_attributes: record<keyof StandardAttributes, string>(string(), string()),
+  attributes: record(
+    intersection([
+      enums([
+        "address",
+        "birthdate",
+        "email",
+        "familyName",
+        "gender",
+        "givenName",
+        "locale",
+        "middleName",
+        "fullname",
+        "nickname",
+        "phoneNumber",
+        "profilePicture",
+        "preferredUsername",
+        "profilePage",
+        "timezone",
+        "lastUpdatedTime",
+        "website",
+      ]),
+      pattern(string(), /^custom\:[A-z]+/),
+    ]),
+    object({
+      // dummy "config" objects, we just need a reason to key the object with the attribute name
+      min: number(),
+      max: number(),
+      required: boolean(),
+    }),
+  ),
 })
